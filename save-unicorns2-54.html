@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Save The Unicorns</title>
+<style>*{box-sizing:border-box;user-select:none;margin:0;padding:0}body{margin:0;background:#08080a;color:#e9e2d0;font-family:'Courier New',monospace;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:100vh}#headerNav{width:640px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:11px;color:#8a8270}#headerNav button{background:#1f1c16;border:1px solid #4a4436;color:#c9a24b;padding:3px 8px;cursor:pointer;font-family:inherit;font-size:10px;border-radius:3px}#headerNav button:hover{background:#2f281d;border-color:#c9a24b}#wrap{position:relative;width:640px;height:400px;background:#000000;box-shadow:0 0 50px rgba(0,0,0,0.95),0 0 1px #dca03566;overflow:hidden;border:1px solid #22201c}canvas{position:absolute;top:0;left:0;image-rendering:pixelated;transition:opacity .3s ease-in-out}#txt{transition:none;pointer-events:none}#ui{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}#ui *{pointer-events:auto}.hidden{display:none !important}#clickHint{position:absolute;bottom:10px;right:16px;color:#e9e2d0;font-size:11px;opacity:.7;animation:pulse 1.4s infinite;z-index:20;pointer-events:none}@keyframes pulse{0%,100%{opacity:.3}50%{opacity:.9}}#dressContainer{position:absolute;inset:0;display:flex;flex-direction:column;pointer-events:none;z-index:10}#dressContainer *{pointer-events:auto}#upperArea{position:relative;height:314px;width:100%;display:flex}#stageOverlay{position:absolute;top:24px;left:28px;font-size:12px;color:#dca035;pointer-events:none;text-shadow:0 1px 2px #000;letter-spacing:0.5px}#hornGuideBadge{position:absolute;top:44px;left:28px;font-size:10px;color:#8f8878;pointer-events:none}#rightContainer{position:absolute;top:0;right:0;height:314px;display:flex}#verticalLine{position:absolute;right:145px;top:0;width:2px;height:314px;background:#dca035;z-index:15}#tabColumn{position:absolute;right:147px;top:22px;display:flex;flex-direction:column;gap:10px;z-index:20}.railTab{background:#0a0a0c;border:2px solid #dca035;border-right:none;border-radius:14px 0 0 14px;color:#ffffff;font-size:13px;font-weight:bold;font-family:inherit;padding:5px 12px 5px 14px;cursor:pointer;display:flex;align-items:center;justify-content:flex-start;transition:all .15s ease;min-width:68px;letter-spacing:0.5px;outline:none}.railTab:hover{background:#251e12;color:#f5dc99;padding-left:17px}.railTab.active{background:#dca035;color:#100d07;box-shadow:-3px 0 10px rgba(220,160,53,0.35)}#itemDrawer{position:absolute;right:0;top:0;width:145px;height:314px;background:#111116;padding:10px 8px;overflow-y:auto;display:flex;flex-direction:column;gap:7px;z-index:10}#itemDrawerTitle{font-size:9.5px;color:#dca035;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;text-align:center;font-weight:bold}.drawerItem{background:#181820;border:1px solid #3c372c;border-radius:6px;padding:6px 6px;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:10px;color:#d8d1be;transition:all .15s ease}.drawerItem:hover{background:#2a251b;border-color:#dca035;color:#fff;transform:translateX(-2px)}.drawerItem.selected{border-color:#dca035;background:#2d2414;color:#fadc8c;box-shadow:0 0 6px rgba(220,160,53,0.3)}.drawerItem .swatch{width:18px;height:18px;border-radius:3px;border:1px solid #000a;flex-shrink:0}.drawerItem .itemIcon{font-size:15px;line-height:1;width:18px;text-align:center;flex-shrink:0}.drawerItem .itemText{line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.drawerItem .subTag{font-size:8px;color:#8d8471;display:block}#horizontalLine{width:100%;height:2px;background:#dca035;z-index:15}#bottomShelf{height:84px;background:#08080a;display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 28px;z-index:10}#slotsGroup{display:flex;align-items:center;gap:18px}.equipSlot{position:relative;width:70px;height:54px;background:#111116;border:2px solid #5a5446;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:all .15s ease}.equipSlot:hover{border-color:#dca035;background:#1a1713}.equipSlot.activeCategory{border-color:#dca035;box-shadow:0 0 8px rgba(220,160,53,0.35)}.slotBadge{position:absolute;top:-7px;left:50%;transform:translateX(-50%);background:#08080a;padding:0 5px;font-size:8px;color:#8f8878;text-transform:uppercase;letter-spacing:0.5px}.equipSlot.activeCategory .slotBadge{color:#dca035;font-weight:bold}.slotPreview{font-size:16px;line-height:1}.slotSwatch{width:22px;height:14px;border-radius:2px;border:1px solid #000a}.slotName{font-size:9px;color:#e9e2d0;max-width:62px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center}#actionArea{display:flex;align-items:center;gap:14px}#turnAwayBtn{background:transparent;border:none;color:#736a5a;font-size:10px;cursor:pointer;text-decoration:underline;font-family:inherit;padding:4px}#turnAwayBtn:hover{color:#bfa77a}#confirmBtn{background:#111116;border:2px solid #8f8878;border-radius:14px;color:#ffffff;font-size:12px;font-weight:bold;font-family:inherit;padding:6px 20px;cursor:pointer;transition:all .15s ease;letter-spacing:0.5px}#confirmBtn:hover{background:#dca035;border-color:#dca035;color:#120e06;box-shadow:0 0 10px rgba(220,160,53,0.4);transform:scale(1.03)}#bookletOverlay{position:absolute;inset:0;background:rgba(5,5,8,0.85);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;z-index:50}#bookletBook{position:relative;width:590px;height:360px;background:#20170e;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,0.9),0 0 1px #dca03566;padding:8px;display:flex}#bookSpread{width:100%;height:100%;display:flex;background:#f4ecd8;border-radius:4px;position:relative;box-shadow:inset 0 0 30px rgba(110,80,40,0.25);overflow:hidden}#bookSpine{position:absolute;top:0;left:50%;transform:translateX(-50%);width:30px;height:100%;background:linear-gradient(to right,rgba(0,0,0,0.18),rgba(0,0,0,0.02) 20%,rgba(0,0,0,0.02) 80%,rgba(0,0,0,0.18));pointer-events:none;z-index:10}.bookPage{flex:1;padding:16px 20px 38px 20px;color:#2d2417;font-size:10px;line-height:1.35;overflow-y:auto;position:relative}.bookPage h3{font-size:13px;color:#733614;border-bottom:1px solid #c9b48c;padding-bottom:3px;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;display:flex;justify-content:space-between;align-items:baseline}.bookEntry{margin-bottom:9px;padding-bottom:6px;border-bottom:1px dashed #d8c7a6}.bookEntry:last-child{border-bottom:none}.bookEntryHeader{display:flex;align-items:center;gap:6px;margin-bottom:2px}.bookEntryTitle{font-weight:bold;font-size:11px;color:#1e1810}.bookSwatch{width:12px;height:12px;border-radius:2px;border:1px solid #0006;display:inline-block}.bookTag{background:#e0d2b6;padding:1px 4px;border-radius:2px;font-size:9px;color:#5c4424;margin-left:auto}.bookEntryDesc{color:#4a3f31;font-size:9.5px;font-style:italic;margin-bottom:2px}.bookEntrySpecs{font-size:9px;color:#2a2014}.bookEntrySpecs b{color:#733614}#bookFooter{position:absolute;bottom:6px;left:0;width:100%;height:28px;display:flex;justify-content:space-between;align-items:center;padding:0 20px;z-index:20;background:linear-gradient(to top,rgba(244,236,216,0.95),rgba(244,236,216,0))}.bookNavBtn{background:#e2d4b8;border:1px solid #8c7858;color:#3a2c1a;font-family:inherit;font-size:9.5px;padding:2px 8px;border-radius:3px;cursor:pointer}.bookNavBtn:hover{background:#d5c29f}#bookPageNum{font-size:9.5px;color:#6b5a40}#closeBookletBtn{position:absolute;top:6px;right:10px;background:#733614;color:#fff;border:none;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:11px;line-height:1;display:flex;align-items:center;justify-content:center;z-index:30}#closeBookletBtn:hover{background:#93481e}</style>
+</head>
+<body>
+
+<div id="headerNav">
+  <span>THE GREAT EQUINE WAR &middot; The VII Century</span>
+  <div>
+    <button id="quickDisguiseBtn" title="Jump straight into the Disguise Scene for testing">Quick Test: Disguise Scene</button>
+  </div>
+</div>
+
+<div id="wrap">
+  <canvas id="c" width="640" height="400"></canvas>
+  <canvas id="txt" width="640" height="400"></canvas>
+  <div id="ui">
+    <div id="clickHint" class="hidden">click / space ▶</div>
+
+    <!-- Redesigned Disguise Scene UI Matching Reference -->
+    <div id="dressContainer" class="hidden">
+      <div id="upperArea">
+        <div id="stageOverlay">
+          <span id="unicornCounterText">Disguise unicorn 1 of 3</span>
+        </div>
+        <div id="hornGuideBadge">Horn: <span id="hornTierBadge" style="color:#dca035;font-weight:bold">MEDIUM</span></div>
+
+        <!-- Right Rail & Drawer -->
+        <div id="rightContainer">
+          <div id="tabColumn">
+            <button class="railTab active" data-tab="hat">hat</button>
+            <button class="railTab" data-tab="mane">mane</button>
+            <button class="railTab" data-tab="coat">coat</button>
+            <button class="railTab" id="bookletTab" data-tab="book">book</button>
+          </div>
+          <div id="verticalLine"></div>
+          <div id="itemDrawer">
+            <div id="itemDrawerTitle">AVAILABLE HATS</div>
+            <div id="itemDrawerList"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="horizontalLine"></div>
+
+      <!-- Bottom Shelf: 3 Equipped Combo Slots + Confirm -->
+      <div id="bottomShelf">
+        <div id="slotsGroup">
+          <div class="equipSlot activeCategory" id="slotHat" data-tab="hat" title="Equipped Hat (Click to change)">
+            <span class="slotBadge">Hat</span>
+            <span class="slotPreview" id="slotHatIcon">🧢</span>
+            <span class="slotName" id="slotHatName">None</span>
+          </div>
+          <div class="equipSlot" id="slotMane" data-tab="mane" title="Equipped Mane Color (Click to change)">
+            <span class="slotBadge">Mane</span>
+            <span class="slotSwatch" id="slotManeSwatch" style="background:#e8b8ff"></span>
+            <span class="slotName" id="slotManeName">Natural</span>
+          </div>
+          <div class="equipSlot" id="slotCoat" data-tab="coat" title="Equipped Coat Color (Click to change)">
+            <span class="slotBadge">Coat</span>
+            <span class="slotSwatch" id="slotCoatSwatch" style="background:#ffffff"></span>
+            <span class="slotName" id="slotCoatName">White</span>
+          </div>
+        </div>
+
+        <div id="actionArea">
+          <button id="turnAwayBtn">turn away</button>
+          <button id="confirmBtn">confirm</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Realistic Two-Page Open Booklet -->
+    <div id="bookletOverlay" class="hidden">
+      <div id="bookletBook">
+        <button id="closeBookletBtn" title="Close Booklet">✕</button>
+        <div id="bookSpread">
+          <div id="bookSpine"></div>
+          
+          <!-- Left Page -->
+          <div class="bookPage" id="bookPageLeft"></div>
+
+          <!-- Right Page -->
+          <div class="bookPage" id="bookPageRight"></div>
+
+          <div id="bookFooter">
+            <button class="bookNavBtn" id="bookPrevBtn">◂ Prev</button>
+            <span id="bookPageNum">Page 1-2 of 4</span>
+            <button class="bookNavBtn" id="bookNextBtn">Next ▸</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const tcv = document.getElementById('txt'), tctx = tcv.getContext('2d');
+ctx.imageSmoothingEnabled = false;
+const SPECIES = [
+  {id:'brown', name:'Brown Horse', coat:'#5a3a22', mane:['black'], clothes:'#e8e2d6', clothesName:'white shirt',
+    flavor:"Common, works 9-to-5, dreams of manager position.", occupation:'Clerk', hornTier:'none'},
+  {id:'red', name:'Red Horse', coat:'#8a3a2a', mane:['black','brown','blond'], clothes:'#3a6a8a', clothesName:'firefighter coat',
+    flavor:"Outgoing, always late, up for a party. Don't mention work.", occupation:'Firefighter', hornTier:'medium'},
+  {id:'gold', name:'Palomino', coat:'#c9a24b', mane:['white','blond'], clothes:'#d9c9a3', clothesName:'chef apron',
+    flavor:"Easygoing, gives up place in line, wouldn't hurt a fly.", occupation:'Chef', hornTier:'tall'},
+  {id:'black', name:'Royal Black', coat:'#232019', mane:['black'], clothes:'#8a1f1f', clothesName:'guard armor',
+    flavor:"Noble, fierce, protects the weak. Clean record.", occupation:'Royal Guard', hornTier:'tall'},
+  {id:'gray', name:'Donkey', coat:'#8a8880', mane:['black'], clothes:'#4a7a4a', clothesName:'tool belt',
+    flavor:"Talks for hours. Loves to help. No guarantee it gets done.", occupation:'Builder', hornTier:'short'},
+  {id:'patched', name:'Red Pinto', coat:'#b04a3a', mane:['red','white'], clothes:'#5a4a3a', clothesName:'jacket', patched:true,
+    flavor:"Cold, keeps to family. Found reading at cafes.", occupation:'Novelist', hornTier:'none'},
+  {id:'striped', name:'Zebra', coat:'#1a1a1a', mane:['striped'], clothes:'#2a3a6a', clothesName:'police uniform', striped:true,
+    flavor:"Makes up most of the police force. Always something to say.", occupation:'Police Officer', hornTier:'short'},
+  {id:'spotted', name:'Appaloosa', coat:'#c9b98a', mane:['white','black'], clothes:'#5a4a6a', clothesName:'cardigan', spotted:true,
+    flavor:"Shyest of them all. Nerdish hobbies, quiet demeanor.", occupation:'Archivist', hornTier:'none'},
+];
+const HATS = [
+  {id:'royal_guard', label:"Royal Guard", hornTier:'tall', speciesId:'black', icon:'🛡️', desc:'Tall crested helm (tall horns)'},
+  {id:'chef', label:"Chef Toque", hornTier:'tall', speciesId:'gold', icon:'🍳', desc:'Puffed tall toque (tall horns)'},
+  {id:'firefighter', label:"Firefighter Helmet", hornTier:'medium', speciesId:'red', icon:'🧯', desc:'Curved brim helmet (medium horns)'},
+  {id:'police', label:"Police Cap", hornTier:'short', speciesId:'striped', icon:'🚨', desc:'Peaked officer cap (short horns)'},
+  {id:'builder', label:"Hard Hat", hornTier:'short', speciesId:'gray', icon:'🔨', desc:'Sturdy dome cap (short horns)'},
+];
+const MANE_COLORS = {
+  black: {name:'Jet Black', hex:'#1a1712'},
+  brown: {name:'Chestnut', hex:'#5a3a22'},
+  blond: {name:'Golden Blond', hex:'#d9c07a'},
+  white: {name:'Alabaster White', hex:'#eeeeee'},
+  red: {name:'Auburn Red', hex:'#8a2a2a'},
+  striped: {name:'Zebra Stripe', hex:'#222222'}
+};
+const HAT_SIZES = ['short','medium','tall'];
+const HORSE = [
+".............H..",
+".............H..",
+".............H..",
+"..........MBHH..",
+".........MMBBBB.",
+"........MMMBBBBB",
+"........MMMBBBBB",
+".MMM....MMMBBB..",
+"MMMMBBBBMMBBBB..",
+"MMMBBBBBMBBBBB..",
+"MMMBBBBBBBBBBB..",
+"MMMBBBBBBBBBBB..",
+"MMMBBBBBBBBBBB..",
+"MMMBB.......BB..",
+"MM.BB.......BB..",
+"M..LL.......LL..",
+];
+function drawHorse(x,y,px,opt){
+  opt = opt||{};
+  const coat = opt.coat || '#ffffff';
+  const mane = opt.mane || '#e8b8ff';
+  HORSE.forEach((row,r)=>{
+    [...row].forEach((ch,c)=>{
+      let col = null;
+      if(ch==='B') col = coat;
+      else if(ch==='M') col = mane;
+      else if(ch==='L') col = '#f5e4b2';
+      else if(ch==='H'){
+        const dist = 4 - r;
+        const hornLevel = opt.hornSize==='short' ? 2 : opt.hornSize==='medium' ? 3 : 4;
+        let hatLevel = 0;
+        if(opt.hat){
+          const hatObj = HATS.find(h=>h.id===opt.hat);
+          if(hatObj){
+            hatLevel = hatObj.hornTier==='short' ? 2 : hatObj.hornTier==='medium' ? 3 : 4;
+          }
+        }
+        col = (opt.horn && dist <= hornLevel && dist > hatLevel) ? '#f5e4b2' : null;
+      }
+      if(col){ 
+        ctx.fillStyle = col; 
+        ctx.fillRect(x+c*px, y+r*px, px, px); 
+      }
+    });
+  });
+  if(opt.pattern==='striped'){
+    ctx.fillStyle = '#ffffff';
+    for(let c=4; c<13; c+=2) ctx.fillRect(x+c*px, y+8*px, px, 5*px);
+  } else if(opt.pattern==='spotted'){
+    ctx.fillStyle = '#ffffff';
+    [[5,9],[8,10],[10,9],[6,11],[11,11]].forEach(([c,r])=>ctx.fillRect(x+c*px,y+r*px,px,px));
+  } else if(opt.pattern==='patched'){
+    ctx.fillStyle = '#e8e2d6';
+    ctx.fillRect(x+8*px,y+8*px,4*px,4*px);
+  }
+  if(opt.hat){
+    const hatObj = HATS.find(h=>h.id===opt.hat);
+    const tier = hatObj ? hatObj.hornTier : 'short';
+    const w = tier==='short'?4:tier==='medium'?5:6;
+    const h = tier==='short'?2:tier==='medium'?3:4;
+    if(opt.hat==='royal_guard'){
+      ctx.fillStyle = '#8a1f1f';
+      ctx.fillRect(x+(12-w/2)*px, y+(3-h)*px, w*px, h*px);
+      ctx.fillStyle = '#dca035';
+      ctx.fillRect(x+11*px, y+(2-h)*px, 2*px, px);
+      ctx.fillStyle = '#232019';
+      ctx.fillRect(x+9*px, y+3*px, 6*px, px);
+    } else if(opt.hat==='chef'){
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(x+(12-w/2)*px, y+(3-h)*px, w*px, h*px);
+      ctx.fillRect(x+10*px, y+(2-h)*px, 4*px, px);
+      ctx.fillStyle = '#dddddd';
+      ctx.fillRect(x+9*px, y+3*px, 6*px, px);
+    } else if(opt.hat==='firefighter'){
+      ctx.fillStyle = '#b33927';
+      ctx.fillRect(x+(12-w/2)*px, y+(3-h)*px, w*px, h*px);
+      ctx.fillStyle = '#dca035';
+      ctx.fillRect(x+11*px, y+(3-h/2)*px, px, px);
+      ctx.fillStyle = '#3a2010';
+      ctx.fillRect(x+8*px, y+3*px, 7*px, px);
+    } else if(opt.hat==='police'){
+      ctx.fillStyle = '#22385c';
+      ctx.fillRect(x+(12-w/2)*px, y+(3-h)*px, w*px, h*px);
+      ctx.fillStyle = '#dca035';
+      ctx.fillRect(x+11*px, y+(3-h)*px, px, px);
+      ctx.fillStyle = '#111116';
+      ctx.fillRect(x+9*px, y+3*px, 6*px, px);
+    } else if(opt.hat==='builder'){
+      ctx.fillStyle = '#e69819';
+      ctx.fillRect(x+(12-w/2)*px, y+(3-h)*px, w*px, h*px);
+      ctx.fillStyle = '#a66b0c';
+      ctx.fillRect(x+9*px, y+3*px, 6*px, px);
+    }
+  }
+  if(opt.clothes){
+    ctx.fillStyle = opt.clothes;
+    ctx.fillRect(x+4*px, y+9*px, 6*px, 2*px);
+  }
+}
+const SCENE1_PALETTE = ['E0A63A', 'C68323', 'B27423', 'A85719', '934911', '673B19', '4A2C0B', '2D1808', '120A03'];
+const PAL3 = ['2D1808','4A280B','934911'];
+const SCENE1_BG = 1;
+const SCENE1 = [
+"................................................................................",
+"................................................................................",
+"................................................................................",
+".....................2.........................0................................",
+"....................222........................00................2..............",
+".....................2..........................00..............222.............",
+"................................................000..............2..............",
+".................................................000............................",
+"....2..................................2.........0000...........................",
+"...................0000000........................000...........................",
+"..................000000000....0..................0000..........................",
+"..............000000000000000000...................000.00.......................",
+".............000000000000000000...................00000000000000................",
+"..............00000000000000000...................000000000000000..........2....",
+"..............00000000000000000...................000000000000000...............",
+".........00000000000000000000000...................0000000000000000...0.........",
+"........000000000000000000000000..................000000000000000000000.........",
+"........000000000000000000000000..................000000000000000000000.........",
+".......0000000000000000000000000.................0000000000000000000000.........",
+".......00000000000000000000000000..............00000000000000000000000..........",
+"........000000000000000.000000000............00000000000000000000000000.........",
+".........00000000000000..00000000...........0000000000000000000000000000........",
+".........000000000000000..0000000...........000000000000000000000000000000......",
+"..........000000000000000..0000000..........0000000000000.00000000000000000.....",
+"..........0000000000000000..000000..........00000.........00000000000000000.....",
+"..........0000000000000000..000000...........000..........00000000000000000.....",
+"..........0000000000000000..000000.......................000000000000000000.....",
+"........000000000000000000...0000........................0000000000000000.0.....",
+".......00000000000000000000..............................0000000000000000.......",
+".......00000000000000000000............................000000000000000000.......",
+"........0000000000000000000............................000000000000000000.......",
+".........000000000000000000...........................0000000000000000000.......",
+".........000000000000000000...........................0000000000000000000.......",
+"..2.........000000000000000............2..............0000000000000000000.......",
+".222.........00000000000000...........222............0000000000000000000........",
+"..2...........0000000000000............2.............0000000000000000000........",
+".................0000000000..........................0000000000000000000........",
+".....................000000..........................0000000000000..............",
+".....................................................0000000000.................",
+".....................................................0000000....................",
+"................................................................................",
+"................................................................................",
+".....................2..............................................2...........",
+"................................................................................",
+"................................................................................",
+];
+const SCENE2 = [
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000111000000000000000000000011000000111000000000000000000000000000000000",
+"00000000001111111000001111111110000111100001111000111111000000000000000000000000",
+"00000001111111111111111111111111111111111111111111111111110001000000000000000000",
+"00000011111111122111111111111111111111111111111111111111111111110000000000000000",
+"00000111111122222111111111111111111122221111111111111111111111111000000111100011",
+"00111111111122222111111111111111122222221111111111111111111111111111111111111111",
+"11122111111222222111111111122......222111111111111122111111111111111111111111221",
+"112222222222222222111111112.......2222111111111111222111111111111111111111122222",
+"112222222222222222222222222.......2222111222221112222211111111111111221112222222",
+"1122222222222222222222222222......222222222....222222222222222222222222222....22",
+"112..2222..22222222222222222......222..........222222222222222222..222222.....22",
+"112...22...22222222222222222......22...........2222222222222222...............22",
+"22.........22222222222222222.....................2222222222....................2",
+"22............2222222222222......................2222222222.....................",
+"2.............22222222...........................2222222........................",
+"..............00000002.........11111............22222...........................",
+".............00000000000.....11111111..........222222.........................11",
+"............0000000000000....111111111....22...22222..........................11",
+"...........000000000000000111111111111..2222..222222..........................11",
+".........00000000000000011111111111112.222222222222...........................11",
+"........0000000000000000011111111111122222222222222...........................11",
+"11....000000000000000000000111111111111111222222222.....................11....11",
+"11...0000000000000000000000011111111111111111111111111110000000.....1111111...11",
+"11.0000000000000000000000000111111111111111111111111111100000000....11111111..11",
+"11000000000000000000000000000111111111111111111111111110000000000...111111111111",
+"10000000000000000000000000111111111111000111111111111000000000000...111111110000",
+"11111111100000000000000000111111111110000000111111110000000000000001111111100000",
+"11111111100000000000000000111111111110000000001111000000000000000001111110000000",
+"01111111100000000000000000111111111100000000001111111000000000000111111100000000",
+"00111111100000000000000000111111000000000000001111111000000000000111111100000000",
+"00001111100000000000000000111111000000000000000000011000000000000110000000000000",
+"00001110000000000000000000111110000000000000000000000000000000000110000000000000",
+"00000000000000000000000000011000000000000000000000000000000000000110000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+];
+const SCENE3 = [
+"..............................................................222222222222222222",
+"................................................................2222222222222222",
+"..................................................00.............222222222222222",
+".........................0........................000......0..2...22222222222222",
+".........................0......................0.000.....000......2222222222222",
+"........................000....................0000000....0000..2..2222222222222",
+".......................00000.................00.000000....0000....2..22222222222",
+".......................000000...............00000000000..000000022..222222222222",
+"......................0000000......0........0000000000...000000.2..2222222222222",
+"....................0000000000...0000..0...0000000000000.000000002..222222222222",
+".....................00000000000.0000..00.0000000000000000000000..2.222222222222",
+"0.....................000000000.00000.000000000000000000000000000..2222222222222",
+"00...................000000000.0000000000000000000000000000000002.22222222222222",
+"000.................000000000000000000000000000000000000000000000022222222222222",
+"000...0....0.........00000000000000000000000000000000000000000000022222222222220",
+"0000.000..00........000000000000000000000000000000000000000000000022222222222220",
+"0000.0000000.....0.0000000000000000000000000000000000000000000000002222222222200",
+"0000000000000...0000000000000000000000000000000000000000000000000000222222220200",
+"00000000000000.00000000000000000000000000000000000000000000000000000202222220000",
+"00000000000000000000000000000000000000000000000000000000000000000000002220200000",
+"00000000000000000000000000000000000000000000000000000000000000000000000020000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"00000000000000000000000000000000000000000000000000000000000000100000000000000000",
+"00000000000000000000000000000001000000000000000001100001011101111011010001110011",
+"00000000000000000010001001010101111101000000001011101111111111111111111111111111",
+"10010100000000000010111001111111111111000000011111111111111111111111111111111111",
+"11111100010001010111111111111111111111110000111111111111111111111111111111111111",
+"11111101011111111111111111111111111111111111111111111111111111111111111111111111",
+"11111111111111111111111111111111111111111111111111111111111111111111111111111111",
+"11111111111111111111111111111111111111111111111111111111111111111111111111111111",
+"11111111111111111111111111111111111111111111111111111111111111111111111111111111",
+"11111111111111111111111111111111111111111111111111111111111111111111111111111111",
+"11111111111111111111111111111111111111111111111111111111111111111111111111111111",
+];
+const SCENE5 = [
+"................................................................................",
+"................................................................................",
+"................................................................................",
+"................................................................................",
+"................................................................................",
+"................................................................................",
+"...................................................0............................",
+".................................................0.0............................",
+".................................................000............0...............",
+"...........................................0.....111............0.0.............",
+"...........................................0.....111..0.........0000...0........",
+"..........................................10.....111.00........000000.00........",
+"..........................................10.....111.00........000000.00........",
+".........................................1111..011111010......0000000000........",
+".........................................1111.0111111110.....11100000000........",
+".........................................111100111111110.....110000000000.......",
+".........................................111101111111111.....000000100000.......",
+".........................................111101111111101.....111110100000.......",
+".........................................1111111100110000....111111100000.......",
+".......................................0.11111100000100011110011111111111.......",
+"....................................0..0.11111000000000010000001111111100.......",
+"....................................00.0.11110000000011110000000111111100.......",
+"...................................00010111110000000111100000000111111111.......",
+"...............................0...00110111111100000011100000000111111000.......",
+"...........................0...0...00110001111000000111100000000111111111.......",
+".......................0.000.000..100000111111111111111111101111111111111.......",
+".......................0.000.110..100000111111111111111111101111111111110.......",
+"......................011001111111111111111111111111111111111111111000000.......",
+"......................011111111111111111111111111111111111111111111000000.......",
+"......................011111111111111111111111111111111111001111111000000.......",
+"......................011111111111111000000111111111111111000111111000000.......",
+"......................011111111111111100000011111100111111001111111000000.......",
+"......................011111111111100000000000000000111111101111101000000.......",
+"..................11110111111111100000000000000000000111111111111000000000111111",
+"................1111110001111111100000000000000000000111111111111000000000000000",
+"...............11111111000001111110000000000000000000111111111110000000000000002",
+"...............11111111111111111111111111111110000111111111111111111111111222222",
+"...........000000011111111111111111111111111111111111111111111111112222222222222",
+"22222222222222222200000011111111111111111111111111111111111111112222222222222222",
+"22222222222222222222220000000001111111111111111111111111112222222222222222222222",
+"22222222222222222222222222222222222222222222222222222222222222222222222222222222",
+"22222222222222222222222222222222222222222222222222222222222222222222222222222222",
+"22222222222222222222222222222222222222222222222222222222222222222222222222222222",
+"22222222222222222222222222222222222222222222222222222222222222222222222222222222",
+"22222222222222222222222222222222222222222222222222222222222222222222222222222222",
+];
+const TOWN_PALETTE = ['BFB498', 'DFD4BE', '2B202E', '564952', 'A69277', '001E29', '073835'];
+const SCENE_TOWN = [
+"00000011111111111111111111111111111111111111111123444444403333223335566666655666",
+"00000011111111111111111111111111111111110011111123444444003332223336666666656556",
+"00000011111111111111111111110011111111110001111123444440003333223366666666666555",
+"00000011111111111111111111100001111110000000000123444440003333223666566666665555",
+"00000011111111111111111111111000111000000000000023444440443333225556566665555555",
+"00000001111111111111111111111111111000000000444423444444003333225555556665555655",
+"00000001111111111111111111111111111100000000000023444444403222223555566666666665",
+"00000001111111111111111111100000111100000111111123444444403222225555666666666666",
+"00000000111111111111111000000000011110000111111123444444003222223355666666666666",
+"00000000001111111100000000000000111111000011111123444440003222223365666666666666",
+"00000000000111111110000000004411111111000001111123444440443332223335666656656666",
+"00002222200111111111000000001111111111000000000023444440003322223335666555565566",
+"00002332200011111111000000001111111111000000000023444440002322223356566555555565",
+"00002332300000011110000000000111111111000000000023444440002333223555565555555655",
+"00002332300000000000440000000011111110000000000023444444402333223655565666666555",
+"00002332300444400000000222220011111110222230000023444444402333223365566666665555",
+"00002333304433400000000233320001111110333230000023444444442333223225356666656555",
+"00002333303333400000000233324000111100333230000023444444442333223333335566666555",
+"00002222203333400000000233324000000000333230444423444400002333223333366666666556",
+"00000000003333340000000233324000000000333230000023444440002332223333333666666565",
+"00001111143332340000000233324000000000333230000023444444443332223333334466556665",
+"00000000043333330000000233324000000004333230000023443344443332223333333344455666",
+"00000000033333330000000333324000440004333230444423442344443322223333333444444655",
+"00000004433333330000000333324004440004333230000023442344443322222323333334444444",
+"40000044433333230000000333324004440004333230000023442344442322222323333344444444",
+"44444444433333230000000332224000400004322230000023342344442222222323333344444444",
+"44444444433333330000004444444000000004444440000022332344442222222333333334444444",
+"44444444433333330000003333330000000003333330000022332344442222222333333333344444",
+"44444444433333324000000000000000000000000000000022333334442223222333333333333344",
+"44444444433433324440000000000000000000000000000022333334442223222333333333333333",
+"44444444423433334444444444444444444444444444444422333334442222222333333333333333",
+"33333222223333332233333333333333333333333333333322333334442222222332333333333333",
+"33333322223333322333333333333333333333333333333322333233332222222332333333333333",
+"33333332223333323333333223333333333322233333333322233233332222222332233333333333",
+"33333332233343323333333333333323333333333333333322233233232222222332333333333333",
+"32223332233343223322233333332233333333333332233322233233232222222333333333333333",
+"33332232233343233333333333333333333332233333333322223233332222222233333333333333",
+"33332332233332223333333333333333333333333333333322222222222222222233333333333333",
+"22222222222222222222222222222222222222222222222222222222222222222222222222222222",
+"00000000222200000000000000000000000000000000000000000000000000000000000000000000",
+"11111111111111111111111111111111111111111111111111111111111111111111111111111111",
+"11111111111111111111111111111111111111111111111111111111111111111111111111111111",
+"11111111111111111111111111111111111111111111111111111111111111111111111111111111",
+"11111111111111111111111111111111111111111111111111111111111111111111111111111111",
+"11111111111111111111111111111111111111111111111111111111111111111111111111111111",
+];
+function drawScene(grid, palette, x, y, px, bgHex){
+  if(bgHex){
+    ctx.fillStyle = '#' + bgHex;
+    ctx.fillRect(x, y, grid[0].length*px, grid.length*px);
+  }
+  grid.forEach((row,r)=>{
+    [...row].forEach((ch,c)=>{
+      if(ch==='.') return;
+      ctx.fillStyle = '#' + palette[+ch];
+      ctx.fillRect(x+c*px, y+r*px, px, px);
+    });
+  });
+}
+let actx, soundOn = true;
+function gunshot(){
+  if(!soundOn) return;
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    const dur = 0.22, sr = actx.sampleRate, n = sr*dur;
+    const buf = actx.createBuffer(1, n, sr);
+    const d = buf.getChannelData(0);
+    for(let i=0;i<n;i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/n, 3);
+    const src = actx.createBufferSource(); src.buffer = buf;
+    const filt = actx.createBiquadFilter(); filt.type='lowpass'; filt.frequency.value=1600;
+    const gain = actx.createGain(); gain.gain.value = 0.85;
+    src.connect(filt); filt.connect(gain); gain.connect(actx.destination);
+    src.start();
+  }catch(e){}
+}
+function chime(){
+  if(!soundOn) return;
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.frequency.value = 680; o.type='sine';
+    g.gain.setValueAtTime(0.18, actx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime+0.45);
+    o.connect(g); g.connect(actx.destination);
+    o.start(); o.stop(actx.currentTime+0.45);
+  }catch(e){}
+}
+let advanceFn = null;
+document.addEventListener('click', (e)=>{ 
+  if(e.target.closest('#headerNav') || e.target.closest('#dressContainer') || e.target.closest('#bookletOverlay')) return;
+  if(advanceFn) advanceFn(); 
+});
+document.addEventListener('keydown', e=>{ 
+  if(e.code==='Space' && advanceFn) { e.preventDefault(); advanceFn(); }
+});
+function clearUI(){
+  document.getElementById('dressContainer').classList.add('hidden');
+  document.getElementById('bookletOverlay').classList.add('hidden');
+  document.getElementById('clickHint').classList.add('hidden');
+}
+function drawBG(color){ 
+  ctx.fillStyle = color; 
+  ctx.fillRect(0,0,640,400); 
+  tctx.clearRect(0,0,640,400); 
+}
+function wrapText(text, maxW){
+  const words = text.split(' ');
+  let lines = [], line = '';
+  words.forEach(w=>{
+    const test = line ? line+' '+w : w;
+    if(tctx.measureText(test).width > maxW){ lines.push(line); line = w; }
+    else line = test;
+  });
+  lines.push(line);
+  return lines;
+}
+function playTextScene(lines, onDone, opt){
+  opt = opt || {};
+  let i = 0;
+  document.getElementById('clickHint').classList.remove('hidden');
+  function showLine(){
+    drawBG(opt.bg || '#000');
+    if(opt.draw) opt.draw();
+    tctx.font = '15px "Courier New"';
+    tctx.fillStyle = '#e9e2d0';
+    tctx.textAlign = 'left';
+    const wrapped = wrapText(lines[i], 500);
+    wrapped.forEach((l,li)=> tctx.fillText(l, 70, 330 + li*22));
+    if(opt.speaker){
+      tctx.fillStyle = '#c9a24b';
+      tctx.font = 'bold 13px "Courier New"';
+      tctx.fillText(opt.speaker, 70, 310);
+    }
+  }
+  advanceFn = ()=>{
+    i++;
+    if(i>=lines.length){
+      advanceFn = null;
+      document.getElementById('clickHint').classList.add('hidden');
+      cv.style.opacity = '0';
+      setTimeout(()=>{ onDone(); cv.style.opacity = '1'; }, 350);
+      return;
+    }
+    showLine();
+  };
+  showLine();
+}
+let state = {
+  gold: 0,
+  inventory: {hats:[], manes:[], bodies:['brown']},
+  day: 1,
+};
+function mkUnicorn(){
+  const hornSize = HAT_SIZES[Math.floor(Math.random()*3)];
+  return {
+    horn: true,
+    hornSize: hornSize,
+    hat: null, 
+    mane: null, 
+    body: null, 
+    clothes: null,
+    declined: false,
+    survived: null, 
+    reason: null,
+  };
+}
+let dressCtx = null;
+let activeTab = 'hat';
+let bookletPage = 0;
+function startDressUp(list, oneAtATime, onAllDone){
+  dressCtx = {list, idx:0, oneAtATime, onAllDone};
+  activeTab = 'hat';
+  nextUnicorn();
+}
+function nextUnicorn(){
+  if(!dressCtx || dressCtx.idx >= dressCtx.list.length){ 
+    if(dressCtx && dressCtx.onAllDone) dressCtx.onAllDone(); 
+    return; 
+  }
+  renderDressUp();
+}
+function renderDressUp(){
+  const u = dressCtx.list[dressCtx.idx];
+  drawBG('#0a0a0c');
+  const boxX = 16, boxY = 14, boxW = 394, boxH = 286;
+  ctx.strokeStyle = '#2c251c';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(boxX, boxY, boxW, boxH);
+  const horseX = Math.round(boxX + (boxW - 192) / 2) - 5;
+  const horseY = Math.round(boxY + (boxH - 192) / 2);
+  const hornLevels = [
+    {tier:'tall', y: horseY + Math.round(0.5 * 12), label:'TALL (T)'},
+    {tier:'medium', y: horseY + Math.round(1.5 * 12), label:'MED  (M)'},
+    {tier:'short', y: horseY + Math.round(2.5 * 12), label:'SHRT (S)'},
+  ];
+  ctx.font = '9px "Courier New"';
+  hornLevels.forEach(hl=>{
+    const isThisTier = u.hornSize === hl.tier;
+    ctx.setLineDash([3,3]);
+    ctx.strokeStyle = isThisTier ? '#dca035' : '#332f26';
+    ctx.fillStyle = isThisTier ? '#f5dc99' : '#554f42';
+    ctx.beginPath();
+    ctx.moveTo(horseX + 14 * 12 + 6, hl.y);
+    ctx.lineTo(horseX + 14 * 12 + 36, hl.y);
+    ctx.stroke();
+    ctx.fillText(hl.label, horseX + 14 * 12 + 42, hl.y + 3);
+  });
+  ctx.setLineDash([]);
+  drawHorse(horseX, horseY, 12, {
+    coat: u.body ? colorForBody(u.body) : '#ffffff',
+    mane: u.mane ? MANE_COLORS[u.mane].hex : '#e8b8ff',
+    pattern: patternForBody(u.body),
+    horn: true,
+    hornSize: u.hornSize,
+    hat: u.hat,
+    clothes: u.clothes ? clothesColor(u.clothes) : null,
+  });
+  document.getElementById('dressContainer').classList.remove('hidden');
+  document.getElementById('unicornCounterText').textContent = 
+    `Disguise unicorn ${dressCtx.idx + 1} of ${dressCtx.list.length}`;
+  const tierBadge = document.getElementById('hornTierBadge');
+  tierBadge.textContent = u.hornSize.toUpperCase();
+  tierBadge.style.color = u.hornSize==='tall'?'#e68a4e':u.hornSize==='medium'?'#dca035':'#8fd39f';
+  document.querySelectorAll('.railTab').forEach(tab=>{
+    if(tab.dataset.tab === activeTab){
+      tab.classList.add('active');
+    } else {
+      tab.classList.remove('active');
+    }
+  });
+  renderItemDrawer(u);
+  renderBottomSlots(u);
+}
+function renderItemDrawer(u){
+  const drawerList = document.getElementById('itemDrawerList');
+  const drawerTitle = document.getElementById('itemDrawerTitle');
+  drawerList.innerHTML = '';
+  if(activeTab === 'hat'){
+    drawerTitle.textContent = 'AVAILABLE HATS';
+    const noneItem = document.createElement('div');
+    noneItem.className = `drawerItem ${!u.hat ? 'selected':''}`;
+    noneItem.innerHTML = `<span class="itemIcon">✖</span><span class="itemText">No Hat<span class="subTag">horns exposed</span></span>`;
+    noneItem.onclick = ()=>{ u.hat = null; renderDressUp(); };
+    drawerList.appendChild(noneItem);
+    HATS.forEach(h=>{
+      const el = document.createElement('div');
+      el.className = `drawerItem ${u.hat === h.id ? 'selected':''}`;
+      el.innerHTML = `
+        <span class="itemIcon">${h.icon}</span>
+        <span class="itemText">
+          ${h.label}
+          <span class="subTag">${h.hornTier} horn</span>
+        </span>
+      `;
+      el.onclick = ()=>{
+        u.hat = h.id;
+        const sp = SPECIES.find(s=>s.id===h.speciesId);
+        if(sp) u.clothes = sp.id;
+        renderDressUp();
+      };
+      drawerList.appendChild(el);
+    });
+  } else if(activeTab === 'mane'){
+    drawerTitle.textContent = 'MANE DYES';
+    const naturalItem = document.createElement('div');
+    naturalItem.className = `drawerItem ${!u.mane ? 'selected':''}`;
+    naturalItem.innerHTML = `<span class="swatch" style="background:#e8b8ff"></span><span class="itemText">Natural<span class="subTag">undisguised</span></span>`;
+    naturalItem.onclick = ()=>{ u.mane = null; renderDressUp(); };
+    drawerList.appendChild(naturalItem);
+    Object.keys(MANE_COLORS).forEach(k=>{
+      const m = MANE_COLORS[k];
+      const el = document.createElement('div');
+      el.className = `drawerItem ${u.mane === k ? 'selected':''}`;
+      el.innerHTML = `
+        <span class="swatch" style="background:${m.hex}"></span>
+        <span class="itemText">
+          ${m.name}
+          <span class="subTag">dye powder</span>
+        </span>
+      `;
+      el.onclick = ()=>{ u.mane = k; renderDressUp(); };
+      drawerList.appendChild(el);
+    });
+  } else if(activeTab === 'coat'){
+    drawerTitle.textContent = 'COAT DYES & CLAY';
+    const whiteItem = document.createElement('div');
+    whiteItem.className = `drawerItem ${!u.body ? 'selected':''}`;
+    whiteItem.innerHTML = `<span class="swatch" style="background:#ffffff"></span><span class="itemText">Pure White<span class="subTag">natural</span></span>`;
+    whiteItem.onclick = ()=>{ u.body = null; renderDressUp(); };
+    drawerList.appendChild(whiteItem);
+    SPECIES.forEach(s=>{
+      const el = document.createElement('div');
+      el.className = `drawerItem ${u.body === s.id ? 'selected':''}`;
+      el.innerHTML = `
+        <span class="swatch" style="background:${s.coat}"></span>
+        <span class="itemText">
+          ${s.name}
+          <span class="subTag">${s.occupation}</span>
+        </span>
+      `;
+      el.onclick = ()=>{ u.body = s.id; renderDressUp(); };
+      drawerList.appendChild(el);
+    });
+  }
+}
+function renderBottomSlots(u){
+  const hatObj = HATS.find(h=>h.id === u.hat);
+  document.getElementById('slotHatIcon').textContent = hatObj ? hatObj.icon : '—';
+  document.getElementById('slotHatName').textContent = hatObj ? hatObj.label : 'No Hat';
+  const maneObj = u.mane ? MANE_COLORS[u.mane] : null;
+  document.getElementById('slotManeSwatch').style.background = maneObj ? maneObj.hex : '#e8b8ff';
+  document.getElementById('slotManeName').textContent = maneObj ? maneObj.name : 'Natural';
+  const coatObj = u.body ? SPECIES.find(s=>s.id === u.body) : null;
+  document.getElementById('slotCoatSwatch').style.background = coatObj ? coatObj.coat : '#ffffff';
+  document.getElementById('slotCoatName').textContent = coatObj ? coatObj.name : 'White';
+  ['hat','mane','coat'].forEach(cat=>{
+    const slotEl = document.getElementById('slot' + cat.charAt(0).toUpperCase() + cat.slice(1));
+    if(slotEl){
+      if(activeTab === cat) slotEl.classList.add('activeCategory');
+      else slotEl.classList.remove('activeCategory');
+    }
+  });
+}
+function colorForBody(id){ const s = SPECIES.find(s=>s.id===id); return s ? s.coat : '#fff'; }
+function patternForBody(id){ const s = SPECIES.find(s=>s.id===id); return s && (s.striped?'striped':s.spotted?'spotted':s.patched?'patched':null); }
+function clothesColor(id){ const s = SPECIES.find(s=>s.id===id); return s ? s.clothes : '#888'; }
+document.querySelectorAll('.railTab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    const t = tab.dataset.tab;
+    if(t === 'book'){
+      openBooklet();
+    } else {
+      activeTab = t;
+      renderDressUp();
+    }
+  });
+});
+document.querySelectorAll('.equipSlot').forEach(slot=>{
+  slot.addEventListener('click', ()=>{
+    activeTab = slot.dataset.tab;
+    renderDressUp();
+  });
+});
+document.getElementById('confirmBtn').onclick = ()=>{
+  if(!dressCtx) return;
+  dressCtx.idx++;
+  nextUnicorn();
+};
+document.getElementById('turnAwayBtn').onclick = ()=>{
+  if(!dressCtx) return;
+  dressCtx.list[dressCtx.idx].declined = true;
+  dressCtx.idx++;
+  nextUnicorn();
+};
+function openBooklet(){
+  bookletPage = 0;
+  document.getElementById('bookletOverlay').classList.remove('hidden');
+  renderBookletPages();
+}
+document.getElementById('closeBookletBtn').onclick = ()=>{
+  document.getElementById('bookletOverlay').classList.add('hidden');
+};
+document.getElementById('bookletOverlay').addEventListener('click', (e)=>{
+  if(e.target.id === 'bookletOverlay'){
+    document.getElementById('bookletOverlay').classList.add('hidden');
+  }
+});
+document.getElementById('bookPrevBtn').onclick = ()=>{
+  if(bookletPage > 0){
+    bookletPage--;
+    renderBookletPages();
+  }
+};
+document.getElementById('bookNextBtn').onclick = ()=>{
+  if(bookletPage < 1){
+    bookletPage++;
+    renderBookletPages();
+  }
+};
+function renderBookletPages(){
+  const left = document.getElementById('bookPageLeft');
+  const right = document.getElementById('bookPageRight');
+  const pageNum = document.getElementById('bookPageNum');
+  if(bookletPage === 0){
+    pageNum.textContent = 'Pages 1-2 of 4';
+    left.innerHTML = `
+      <h3>Common Breeds <span class="bookTag">Vol. I</span></h3>
+      ${SPECIES.slice(0, 4).map(s=>{
+        const hat = HATS.find(h=>h.speciesId === s.id);
+        return `
+          <div class="bookEntry">
+            <div class="bookEntryHeader">
+              <span class="bookSwatch" style="background:${s.coat}"></span>
+              <span class="bookEntryTitle">${s.name}</span>
+              <span class="bookTag">${s.occupation}</span>
+            </div>
+            <div class="bookEntryDesc">"${s.flavor}"</div>
+            <div class="bookEntrySpecs">
+              <b>Uniform:</b> ${s.clothesName} &middot; 
+              <b>Hat:</b> ${hat ? hat.label : 'None'} (${hat ? hat.hornTier+' horn' : 'no horn'})
+            </div>
+          </div>
+        `;
+      }).join('')}
+    `;
+    right.innerHTML = `
+      <h3>Working & Pinto <span class="bookTag">Vol. II</span></h3>
+      ${SPECIES.slice(4, 8).map(s=>{
+        const hat = HATS.find(h=>h.speciesId === s.id);
+        return `
+          <div class="bookEntry">
+            <div class="bookEntryHeader">
+              <span class="bookSwatch" style="background:${s.coat}"></span>
+              <span class="bookEntryTitle">${s.name}</span>
+              <span class="bookTag">${s.occupation}</span>
+            </div>
+            <div class="bookEntryDesc">"${s.flavor}"</div>
+            <div class="bookEntrySpecs">
+              <b>Uniform:</b> ${s.clothesName} &middot; 
+              <b>Hat:</b> ${hat ? hat.label : 'None'} (${hat ? hat.hornTier+' horn' : 'no horn'})
+            </div>
+          </div>
+        `;
+      }).join('')}
+    `;
+  } else {
+    pageNum.textContent = 'Pages 3-4 of 4';
+    left.innerHTML = `
+      <h3>Hat Directory <span class="bookTag">Disguises</span></h3>
+      <div style="font-size:9px;color:#5a4932;margin-bottom:8px">Hats must match or exceed the unicorn's horn height, or the horn tip will be exposed to border guards.</div>
+      ${HATS.map(h=>{
+        return `
+          <div class="bookEntry">
+            <div class="bookEntryHeader">
+              <span>${h.icon}</span>
+              <span class="bookEntryTitle">${h.label}</span>
+              <span class="bookTag">${h.hornTier} horn</span>
+            </div>
+            <div class="bookEntryDesc">${h.desc}</div>
+            <div class="bookEntrySpecs">
+              <b>Primary Breed:</b> ${SPECIES.find(s=>s.id===h.speciesId).name}
+            </div>
+          </div>
+        `;
+      }).join('')}
+    `;
+    right.innerHTML = `
+      <h3>Border Protocols <span class="bookTag">Field Intel</span></h3>
+      <div class="bookEntry">
+        <div class="bookEntryTitle">1. Horn Concealment (Strict)</div>
+        <div class="bookEntryDesc">A short hat on a medium/tall horn leaves the tip visible. Result: instant capture.</div>
+      </div>
+      <div class="bookEntry">
+        <div class="bookEntryTitle">2. Mane Dyeing (Essential)</div>
+        <div class="bookEntryDesc">Natural lavender mane color is an immediate dead giveaway. It must be dyed.</div>
+      </div>
+      <div class="bookEntry">
+        <div class="bookEntryTitle">3. Full Breed Match (High Odds)</div>
+        <div class="bookEntryDesc">When Hat, Mane color, and Coat color all match an authentic breed profile, checkpoint passage is guaranteed.</div>
+      </div>
+      <div class="bookEntry">
+        <div class="bookEntryTitle">4. Risk Management</div>
+        <div class="bookEntryDesc">If you lack the right coat clay, a good hat and dyed mane still have a chance if the guards are inattentive.</div>
+      </div>
+    `;
+  }
+}
+function score(u, guardTired){
+  const hat = HATS.find(h=>h.id===u.hat);
+  const hornTiers = {short:2, medium:3, tall:4};
+  const hatCover = hat ? hornTiers[hat.hornTier] : 0;
+  const neededCover = hornTiers[u.hornSize];
+  if(hatCover < neededCover || !u.mane){
+    return {
+      pass: false, 
+      reason: !hat 
+        ? 'no hat was equipped — the horn was in plain sight' 
+        : hatCover < neededCover 
+          ? `the ${hat.label} was too short for the ${u.hornSize} horn` 
+          : 'the mane was left in its natural unicorn color'
+    };
+  }
+  const breed = hat ? SPECIES.find(s=>s.id===hat.speciesId) : null;
+  const breedOK = breed && u.body === breed.id;
+  if(breedOK){
+    return {pass: true, reason: `hat, mane, and coat matched the ${breed.name} disguise perfectly`};
+  }
+  const pass = guardTired || Math.random() < 0.55;
+  return {
+    pass, 
+    reason: pass 
+      ? 'the hat and dyed mane concealed the horn enough to slip through' 
+      : 'coat color did not match the disguise identity, and guards grew suspicious'
+  };
+}
+function start(){
+  const peaceLines = [
+    "A long time ago, horses and unicorns lived together in peace and harmony.",
+  ];
+  const warLines = [
+    "But everything ended in a single night of sudden chaos. The Great Equine War started and never truly ended.",
+    "Every unicorn was banished, and those found within the horses' lands were slaughtered on sight.",
+    "Most unicorns escaped. But many were left behind.",
+  ];
+  const forestLine = [
+    "Those who remained fled to an abandoned forest, isolated, unseen and forgotten.",
+  ];
+  const castleLines = [
+    "In the dark they waited for the chance to escape the land.",
+    "To find their way home, to the unicorn kingdom where everyone remembered their names.",
+  ];
+  playTextScene(peaceLines, ()=>{
+    playTextScene(warLines, ()=>{
+      playTextScene(forestLine, ()=>{
+        playTextScene(castleLines, sceneFarm1, {bg:'#000', draw:()=> drawScene(SCENE5, PAL3, 40, 0, 5, 'C68323')});
+      }, {bg:'#000', draw:()=> drawScene(SCENE3, PAL3, 40, 0, 5, 'C68323')});
+    }, {bg:'#000', draw:()=> drawScene(SCENE2, PAL3, 40, 0, 5, 'C68323')});
+  }, {bg:'#000', draw:()=> drawScene(SCENE1, PAL3, 40, 0, 5, 'C68323')});
+}
+function sceneFarm1(){
+  const lines = [
+    "You are a plain white horse who runs a hat stall in the town square, dyes and trims for whoever needs a fresh look.",
+    "One afternoon, a hooded figure lingers at your stall long after the other customers have gone.",
+  ];
+  playTextScene(lines, sceneUnicornBegs, {bg:'#101418', draw:()=>{
+    drawHorse(40, 170, 10, {coat:'#eee', mane:'#ccc'});
+  }});
+}
+function sceneUnicornBegs(){
+  const lines = [
+    "The hood slips, just for a second. A horn. A unicorn — undercover, terrified.",
+    "You've heard the stories. You know what happens to unicorns found this close to the gate.",
+    "Something in you understands her fear better than she'd guess — you've been looked at sideways too, more than once, for reasons you don't talk about.",
+    "Without a word, you pick out a hat that'll hide her horn, and mix a grey dye for her mane. No charge.",
+  ];
+  playTextScene(lines, sceneBorder1, {bg:'#101418', draw:()=>{
+    drawScene(SCENE_TOWN, TOWN_PALETTE, 40, 0, 7);
+    drawHorse(40, 170, 10, {coat:'#eee', mane:'#ccc'});
+    drawHorse(260, 170, 10, {coat:'#fff', mane:'#e8b8ff', horn:true});
+  }});
+}
+function sceneBorder1(){
+  clearUI();
+  const lines = [
+    "She heads for the border checkpoint, hat low over her horn, mane freshly dyed grey.", 
+    "You watch from a distance, heart pounding."
+  ];
+  playTextScene(lines, ()=>{
+    setTimeout(()=>{
+      chime();
+      playTextScene(["She crosses. No one stops her. She's free."], ()=> sceneReward1(true), {bg:'#050508'});
+    }, 300);
+  }, {bg:'#050508'});
+}
+function sceneReward1(survived){
+  state.day = 2;
+  const lines = survived ? [
+    "The next morning, a little bird taps at your window.",
+    "When you get close, it flies off — but leaves a letter and a small bag of coins.",
+    '"Thank you. I made it. This is all I have to give — please, take it." — the letter reads.',
+  ] : [
+    "The morning is quiet. Too quiet.",
+    "You never hear from her again.",
+  ];
+  if(survived) state.gold += 12;
+  playTextScene(lines, sceneTimeSkip, {bg:'#1a1610', draw:()=> drawHorse(240, 170, 10, {coat:'#eee', mane:'#ccc'})});
+}
+function sceneTimeSkip(){
+  playTextScene(["... after some days ..."], sceneThreeUnicorns, {bg:'#000'});
+}
+function sceneThreeUnicorns(){
+  try{ localStorage.setItem('su_progress', 'act2'); }catch(e){}
+  const lines = [
+    "Word travels fast, even in hiding.",
+    '"There\'s a hatter in town who helps our kind," they whisper.',
+    "Now three hooded unicorns linger at your stall at once, waiting for the square to empty.",
+    "This is no longer a quiet favor. If you're caught, you hang beside them.",
+  ];
+  const list = [mkUnicorn(), mkUnicorn(), mkUnicorn()];
+  playTextScene(lines, ()=> startDressUp(list, false, ()=>sceneBorder2(list)), {bg:'#101418', draw:()=>{
+    drawScene(SCENE_TOWN, TOWN_PALETTE, 40, 0, 7);
+    drawHorse(20, 170, 10, {coat:'#fff', mane:'#e8b8ff', horn:true});
+    drawHorse(210, 170, 10, {coat:'#fff', mane:'#b8e8ff', horn:true});
+    drawHorse(400, 170, 10, {coat:'#fff', mane:'#ffe8b8', horn:true});
+  }});
+}
+function sceneBorder2(list){
+  clearUI();
+  const lines = ["Three shapes move toward the checkpoint under a moonless sky."];
+  const guardTired = Math.random() < 0.35;
+  playTextScene(lines, ()=>{
+    const results = list.map(u=>{
+      if(u.declined) return {u, survived:false, reason:'you turned them away — they tried alone and were caught'};
+      const s = score(u, guardTired);
+      return {u, survived: s.pass, reason: s.reason};
+    });
+    const anyDead = results.some(r=>!r.survived);
+    setTimeout(()=>{
+      if(anyDead) gunshot();
+      const summaryLine = anyDead 
+        ? "Shots ring out in the dark. Not all of them made it." 
+        : "Silence. All three cross safely.";
+      playTextScene([summaryLine], ()=> sceneRating(results), {bg:'#050508'});
+    }, 300);
+  }, {bg:'#050508'});
+}
+function sceneRating(results){
+  clearUI();
+  drawBG('#0e0e14');
+  ctx.fillStyle='#c9a24b'; 
+  ctx.font='18px "Courier New"'; 
+  ctx.fillText('Outcome', 30, 40);
+  let y = 80, totalGold = 0;
+  results.forEach((r,i)=>{
+    const pay = r.survived ? (5 + i) : 0;
+    totalGold += pay;
+    ctx.fillStyle = r.survived ? '#8fd39f' : '#e39a9a';
+    ctx.font='13px "Courier New"';
+    ctx.fillText(`Unicorn ${i+1}: ${r.survived ? 'survived' : 'did not survive'}`, 40, y);
+    ctx.fillStyle = '#999'; 
+    ctx.font='11px "Courier New"';
+    ctx.fillText(r.survived ? `reward: ${pay}g` : `reason: ${r.reason}`, 40, y+16);
+    y += 44;
+  });
+  state.gold += totalGold;
+  ctx.fillStyle='#c9a24b';
+  ctx.font='13px "Courier New"';
+  ctx.fillText('Total gold earned: ' + totalGold + '  (bank: ' + state.gold + ')', 40, y+10);
+  document.getElementById('clickHint').classList.remove('hidden');
+  document.getElementById('clickHint').textContent = 'click to continue the story ▶';
+  advanceFn = ()=>{
+    advanceFn = null;
+    playTextScene([
+      "More will come. And the border only gets more careful.", 
+      "(— end of prototype act —)"
+    ], ()=>{}, {bg:'#000'});
+  };
+}
+document.getElementById('quickDisguiseBtn').onclick = ()=>{
+  clearUI();
+  const list = [mkUnicorn(), mkUnicorn(), mkUnicorn()];
+  startDressUp(list, false, ()=>sceneBorder2(list));
+};
+start();</script>
+</body>
+</html>
