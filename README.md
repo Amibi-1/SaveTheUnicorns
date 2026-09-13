@@ -1,8 +1,8 @@
 # 🦄 Save the Unicorns
 
-*Use the available hats and items to save the unicorns lives!🎩*
+*Use the available hats and items to save the unicorns lives!*
 
-You run an ordinary hat stall in an ordinary town — except some of your customers aren't ordinary at all. Hunted unicorns come to you cloaked in secrecy, and it's up to you to turn them into "another horse" before they go to the checkpoint and hopefully cross the borders.
+You run an ordinary hat stall in a town in the Horses' Land — except some of your customers aren't ordinary at all. Hunted unicorns come to you cloaked in secrecy, and it's up to you to turn them into "another horse" before they go to the checkpoint and hopefully cross the borders.
 
 ## The Game
 
