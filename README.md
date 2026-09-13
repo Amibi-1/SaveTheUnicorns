@@ -4,8 +4,6 @@
 
 You run an ordinary hat stall in an ordinary town — except some of your customers aren't ordinary at all. Hunted unicorns come to you cloaked in secrecy, and it's up to you to turn them into "another horse" before they go to the checkpoint and hopefully cross the borders.
 
-One wrong hat. One wrong detail. One life lost.
-
 ## The Game
 
 - **Town Scene** — the story unfolds. Who's arrived today, and what do they need from you?
