@@ -23,7 +23,7 @@ I started two weeks late (28 Aug instead of 13 Aug), so I submitted an incomplet
 - Many mechanics were cut: the day/night system, inventory, save/load, purchasing, the audio, and the rainbow escape on the last day.
 
 ## Takeaway🌸
-I'm glad I took part in this game jam and made a game under 13KB. Thanks to everyone who made the jam happen, to @ender on Discord for helping and answering my questions, and to everyone who played and left feedback.
+I'm glad I took part in this game jam and made a game under 13KB. Thanks to everyone who made the jam happen, to @end3r on Discord for helping and answering my questions, and to everyone who played and left feedback.
 
 # 🔴🟠🟡🟢🔵🟣Save the Unicorns — js13k Postmortem🌈 (Original)
 
