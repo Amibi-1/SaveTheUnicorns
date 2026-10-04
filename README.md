@@ -77,7 +77,7 @@ I ran out of credits in Claude, so I gave Antigravity a try. It was good, but th
 (Side note: Claude wastes lots of credits too, but I did two things to try and prevent that. 1. At the end of each prompt, I explicitly asked it not to waste my credits/quota/tokens. 2. After a certain number of questions, I open a new chat, send the latest version of my file, and start asking in the new chat. My theory is that everything in the chat is summarized and sent with my prompt, and that's why it was wasting my credits. Creating a new chat is my attempt to avoid that kind of overhead.)
 
 <img width="740" height="108" alt="Screenshot 2026-10-03 180746" src="https://github.com/user-attachments/assets/7dd7afd0-4792-481b-8c12-31e711c60f70" />
-<img width="956" height="392" alt="Screenshot 2026-10-03 175810" src="https://github.com/user-attachments/assets/5d95348e-8cc0-4820-94ca-e0576ddfba9c" />
+<img width="740" height="108" alt="Screenshot 2026-10-03 175810" src="https://github.com/user-attachments/assets/5d95348e-8cc0-4820-94ca-e0576ddfba9c" />
 
 ### The Cutscenes🎞️
 
@@ -85,7 +85,7 @@ The in-game cutscenes were just an image matrix (town scene) and a silhouette of
 
 ### The Story / Audio / In-Game Alerts💭
 
-The original story/text was longer than the final version. I didn't know that text can take so much space. There was some audio in the game, but due to the size of the file, I dropped it at the last minute. Also, I was planning on adding in-game alerts, but according to Claude, it would've taken more space, so I used browser alerts in hopes of making the file smaller.
+The original story/text was longer than the final version. I didn't know that text can take so much space. There was some audio in the game and by the time that I had to submit the game (the last day) I realized that the whole file is way over 13kb. so I had to remove lots of things including the audio. I could've made the audio's code smaller but that meant that I have to redo/test/re-minimize the audio segment(and that was impossible because I barely had any time left). Also, I was planning on adding in-game alerts, but according to Claude, it would've taken more space, so I used browser alerts in hopes of making the file smaller (although I don't really know if it is smaller than in-game alerts or not. and even if they are smaller in code idk if it really is a significant difference or not).
 
 ## What Went Well✅
 
@@ -100,9 +100,10 @@ The original story/text was longer than the final version. I didn't know that te
 - I wish I had started earlier. The game jam was a month long, but I only started after two weeks.
 - LOTS of game mechanics/audio were dropped due to the size of the files and the time restriction.
 - There was a part that included a rainbow which the unicorns could walk over to escape on the last day, but I left it out for the same reason (time/file size).
+- Some of the game mechanics that were removed: The mane choice was supposed to matter (each breed should have certain mane colors to pick from for example: red horses can pick white or black) and the gold should've served a purpose too but I dropped the code cuz I didn't have time to re-write/test/re-minimize it. there was supposed to be a shop to buy supplies from. 
 
 ## Takeaway✨
-I'm so glad that I took part in this game jam, and I thank everyone who made it happen! Even if I don't get a really high score, I'm just happy to have had this experience, joined the challenge, and made a game under 13KB!
+I'm so glad that I took part in this game jam, and I thank everyone who made it happen! Even if I don't get a really high score, I'm just happy to have this experience, join the challenge and make a game under 13KB!
 
 A special thanks to @end3r on Discord for helping me when I faced problems with my submission. He was very helpful. Thanks to everyone who participated, everyone who left feedback on my game, and everyone who tried it!
 
