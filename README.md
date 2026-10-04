@@ -1,6 +1,6 @@
 # 🌈 Save the Unicorns — js13k Postmortem (Summary, for the long version scroll down)
 
-*Save the Unicorns* is a story-based, "Undertale, Papers, Please!" inspired game made for js13kGames 2026, my first game jam ever✨. Unicorns have been expelled from the land by victorious horses, and you play a white horse who sells hats and helps them disguise themselves to escape the borders safely.
+*Save the Unicorns* is a story-based, "Undertale / Papers, Please!" inspired game made for js13kGames 2026, my first game jam ever✨. Unicorns have been expelled from the land by victorious horses, and you play a white horse who sells hats and helps them disguise themselves to escape the borders safely.
 
 I started two weeks late (28 Aug instead of 13 Aug), so I submitted an incomplete but fully playable game.
 
