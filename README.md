@@ -77,7 +77,7 @@ I ran out of credits in Claude, so I gave Antigravity a try. It was good, but th
 (Side note: Claude wastes lots of credits too, but I did two things to try and prevent that. 1. At the end of each prompt, I explicitly asked it not to waste my credits/quota/tokens. 2. After a certain number of questions, I open a new chat, send the latest version of my file, and start asking in the new chat. My theory is that everything in the chat is summarized and sent with my prompt, and that's why it was wasting my credits. Creating a new chat is my attempt to avoid that kind of overhead.)
 
 <img width="740" height="108" alt="Screenshot 2026-10-03 180746" src="https://github.com/user-attachments/assets/7dd7afd0-4792-481b-8c12-31e711c60f70" />
-<img width="740" height="108" alt="Screenshot 2026-10-03 175810" src="https://github.com/user-attachments/assets/5d95348e-8cc0-4820-94ca-e0576ddfba9c" />
+<img width="740" height="308" alt="Screenshot 2026-10-03 175810" src="https://github.com/user-attachments/assets/5d95348e-8cc0-4820-94ca-e0576ddfba9c" />
 
 ### The Cutscenes🎞️
 
