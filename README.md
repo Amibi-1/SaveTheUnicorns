@@ -104,6 +104,6 @@ The original story/text was longer than the final version. I didn't know that te
 ## Takeaway✨
 I'm so glad that I took part in this game jam, and I thank everyone who made it happen! Even if I don't get a really high score, I'm just happy to have had this experience, joined the challenge, and made a game under 13KB!
 
-A special thanks to @ender on Discord for helping me when I faced problems with my submission. He was very helpful. Thanks to everyone who participated, everyone who left feedback on my game, and everyone who tried it!
+A special thanks to @end3r on Discord for helping me when I faced problems with my submission. He was very helpful. Thanks to everyone who participated, everyone who left feedback on my game, and everyone who tried it!
 
 I hope I can be part of the next game jam. Good luck to everyone!
