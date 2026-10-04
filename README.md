@@ -5,7 +5,7 @@
 I started two weeks late (28 Aug instead of 13 Aug), so I submitted an incomplete but fully playable game.
 
 ## How It's Built🔨
-- Dropped Kontra, since the game is just includes clicking, dialogue, and backgrounds (doesn't require complex methods/code).
+- Dropped Kontra, since the game just includes clicking, dialogue, and backgrounds (doesn't require complex methods/code).
 - Images were shrunk to 80 x 45 pixels, reduced to a 3-color palette (plus a colored background), cleaned of noise in MS Paint, and converted to matrices which is displayed on the screen as colored pixels.
 - Cutscenes, like the town scene and the unicorn silhouette, are also made up of matrices.
 - Used Claude for ideas and code, and Antigravity for the dialogue box and disguise UI. I use AI moderately, I don't use it for generating art/photos/videos. and I'm not telling anyone to do the same.
