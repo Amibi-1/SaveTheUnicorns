@@ -3,7 +3,7 @@ genres:
   - puzzle
   - stealth
   - narrative
-post: https://github.com/Amibi-1/SaveTheUnicorns/blob/main/readme.md
+post: https://github.com/Amibi-1/SaveTheUnicorns/blob/main/README.md
 ---
 
 # 🦄 Save the Unicorns
