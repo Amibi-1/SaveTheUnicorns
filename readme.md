@@ -61,7 +61,7 @@ I was using Claude to organize my ideas and help me with coding. (I know AI is b
 
 My original idea included a day/night system. In the day you scavenge, then buy from the shop, then a cutscene plays, then the unicorn disguise gameplay begins. At night you are shown the results of the day (did they escape and survive or not). This also means there should be an inventory system, a save and load system, and a purchasing system (I guess). I decided to make the player a white horse that sells hats, so he is able to give the unicorns hats to disguise themselves.
 
-*The images containing my original idea is in a folder named "idea" on this page.*
+🔴 *The images containing my original idea is in a folder named "idea" on this page.*
 
 ### Image to Matrix🖼️
 
