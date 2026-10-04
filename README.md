@@ -20,7 +20,7 @@ I started two weeks late (28 Aug instead of 13 Aug), so I submitted an incomplet
 - The text was too small on mobile, which I never tested.
 - A story-based game is very hard to keep under 13KB.
 - I started too late.
-- Many mechanics were cut: the day/night system, inventory, save/load, purchasing, the audio, and the rainbow escape on the last day.
+- Many mechanics were cut: inventory, save/load, purchasing, the audio, and the rainbow escape on the last day.
 
 ## Takeaway🌸
 I'm glad I took part in this game jam and made a game under 13KB. Thanks to everyone who made the jam happen, to @end3r on Discord for helping and answering my questions, and to everyone who played and left feedback.
@@ -59,7 +59,7 @@ I was using Claude to organize my ideas and help me with coding. (I know AI is b
 
 ### The Gameplay🎮
 
-My original idea included a day/night system. In the day you scavenge, then buy from the shop, then a cutscene plays, then the unicorn disguise gameplay begins. At night you are shown the results of the day (did they escape and survive or not). This also means there should be an inventory system, a save and load system, and a purchasing system (I guess). I decided to make the player a white horse that sells hats, so he is able to give the unicorns hats to disguise themselves.
+My original idea included a day/night system. In the day you scavenge, then buy from the shop, then a cutscene plays, then the unicorn disguise gameplay begins. At night you are shown the results of the day (did they escape and survive or not). This also means there should be an inventory system, a save and load system, and a purchasing system (I guess). I couldn't add those systems because I ran out of time and the file was already around 13kb. I decided to make the player a white horse that sells hats, so he is able to give the unicorns hats to disguise themselves.
 
 🔴 *The images containing my original idea is in a folder named "idea" on this page.*
 
