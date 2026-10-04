@@ -60,14 +60,13 @@ I was using Claude to organize my ideas and help me with coding. (I know AI is b
 ### The Gameplay🎮
 
 My original idea included a day/night system. In the day you scavenge, then buy from the shop, then a cutscene plays, then the unicorn disguise gameplay begins. At night you are shown the results of the day (did they escape and survive or not). This also means there should be an inventory system, a save and load system, and a purchasing system (I guess). I decided to make the player a white horse that sells hats, so he is able to give the unicorns hats to disguise themselves.
-<img width="973" height="727" alt="Screenshot 2026-10-03 174957" src="https://github.com/user-attachments/assets/d4ffbc36-a93d-474e-8cdf-615390bb7f2c" />
-<img width="952" height="776" alt="Screenshot 2026-10-03 175010" src="https://github.com/user-attachments/assets/f84ee4d3-b84e-4979-8e74-64728dd2e570" />
-<img width="987" height="732" alt="Screenshot 2026-10-03 174939" src="https://github.com/user-attachments/assets/344a14bf-f766-46bb-ab79-baf282c4ee03" />
 
+*The images containing my original idea is in a folder named "idea" on this page.*
 
 ### Image to Matrix🖼️
 
 I started to add the images for the intro and the cutscenes. I took some images, pixelated them, and resized them to 166 x 96 pixels. But then I realized that adding images would take too many kilobytes. So I asked Claude, and it suggested turning them into matrices and adding a color palette. Claude took the images and converted them to matrices. Initially the matrix size was 166 x 96, and the color palette contained around 8 colors. But again I asked Claude if shrinking the matrix size and reducing the colors would reduce the file size significantly, and it said yes. So I resized all the images to 80 x 45 pixels and reduced the palette to 3 colors. The fourth color (yellowish tan?) was added as a background to the scenes. I sent them to Claude to convert them into matrices, but they still took too much space. Then Claude said that reducing the noise in the images would reduce their size. So I opened the images in MS Paint and removed the random dots. For example this is an image before and after reduction(not converted to matrix yet):
+
 <img width="166" height="96" alt="castle5" src="https://github.com/user-attachments/assets/7e91fdd0-846b-4dd9-87e8-8387e84aaa0a" />
 <img width="80" height="45" alt="castle" src="https://github.com/user-attachments/assets/03681c8c-e36a-4b5e-b2a4-341767c957d9" />
 
@@ -76,8 +75,9 @@ I started to add the images for the intro and the cutscenes. I took some images,
 I ran out of credits in Claude, so I gave Antigravity a try. It was good, but the advanced models reset after a week. It generated the disguise gameplay UI and dialogue box (I made a drawing to explain to the AI how I wanted the gameplay UI to look, and it recreated it successfully). Then I ran out of credits there too and went back to Claude.
 
 (Side note: Claude wastes lots of credits too, but I did two things to try and prevent that. 1. At the end of each prompt, I explicitly asked it not to waste my credits/quota/tokens. 2. After a certain number of questions, I open a new chat, send the latest version of my file, and start asking in the new chat. My theory is that everything in the chat is summarized and sent with my prompt, and that's why it was wasting my credits. Creating a new chat is my attempt to avoid that kind of overhead.)
-<img width="956" height="777" alt="Screenshot 2026-10-03 175810" src="https://github.com/user-attachments/assets/8c27052e-ff75-40fc-ab84-2fab8e82d1f8" />
-<img width="645" height="107" alt="Screenshot 2026-10-03 180534" src="https://github.com/user-attachments/assets/bccac880-ccc9-49ed-bdc3-776482d0c3c0" />
+
+<img width="740" height="108" alt="Screenshot 2026-10-03 180746" src="https://github.com/user-attachments/assets/7dd7afd0-4792-481b-8c12-31e711c60f70" />
+<img width="956" height="392" alt="Screenshot 2026-10-03 175810" src="https://github.com/user-attachments/assets/5d95348e-8cc0-4820-94ca-e0576ddfba9c" />
 
 ### The Cutscenes🎞️
 
